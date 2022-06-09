@@ -8,6 +8,7 @@ using Vintagestory.GameContent;
 
 namespace ACulinaryArtillery
 {
+    // TODO: Work through BlockSaucepan and BlockEntitySaucepan to properly integrate recipes.  This may also be necessary for Cauldron and Minicauldron
     public class ACulinaryArtillery : ModSystem
     {
         private static Harmony harmony;

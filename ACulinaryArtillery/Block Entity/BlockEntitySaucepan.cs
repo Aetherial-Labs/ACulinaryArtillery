@@ -1,10 +1,12 @@
-﻿using System.Text;
+﻿using System.Collections.Generic;
+using System.Text;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
 using Vintagestory.API.Config;
 using Vintagestory.API.Datastructures;
 using Vintagestory.API.MathTools;
 using Vintagestory.GameContent;
+using static ACulinaryArtillery.efrecipesRecipeLoader;
 
 namespace ACulinaryArtillery
 {
@@ -62,6 +64,22 @@ namespace ACulinaryArtillery
             tree.SetBool("isSealed", isSealed);
         }
 
+        public SimmerRecipe GetMatchingSimmerRecipe(IWorldAccessor world, ItemSlot[] slots)
+        {
+            //if (Pot != null) return null;
+            List<SimmerRecipe> recipes = MixingRecipeRegistry.Loaded.SimmerRecipes;
+            if (recipes == null) return null;
+
+            for (int j = 0; j < recipes.Count; j++)
+            {
+                if (recipes[j].Match(slots))
+                {
+                    return recipes[j];
+                }
+            }
+
+            return null;
+        }
         internal MeshData GenRightMesh()
         {
             if (ownBlock == null || ownBlock.Code.Path.Contains("clay")) return null;

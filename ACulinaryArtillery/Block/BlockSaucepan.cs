@@ -9,6 +9,8 @@ using Vintagestory.API.Util;
 using Vintagestory.API.Server;
 using Vintagestory.GameContent;
 using Vintagestory.API.Datastructures;
+using System.IO;
+using static ACulinaryArtillery.efrecipesRecipeLoader;
 
 namespace ACulinaryArtillery
 {
@@ -18,24 +20,12 @@ namespace ACulinaryArtillery
         public override bool IsTopOpened => true;
         public override bool AllowHeldLiquidTransfer => true;
 
-        static SimmerRecipe[] simmerRecipes;
+        //static SimmerRecipe[] simmerRecipes;
 
         public bool isSealed;
         public override void OnLoaded(ICoreAPI api)
         {
             base.OnLoaded(api);
-
-            if (simmerRecipes == null)
-            {
-                simmerRecipes = Attributes["simmerRecipes"].AsObject<SimmerRecipe[]>();
-                if (simmerRecipes != null)
-                {
-                    foreach (SimmerRecipe rec in simmerRecipes)
-                    {
-                        rec.Resolve(api.World, "saucepan");
-                    }
-                }
-            }
         }
         public IInFirepitRenderer GetRendererWhenInFirepit(ItemStack stack, BlockEntityFirepit firepit, bool forOutputSlot)
             {
@@ -115,8 +105,7 @@ namespace ACulinaryArtillery
             }
             else if (simmerRecipes != null)
             {
-                foreach (SimmerRecipe rec in simmerRecipes)
-                {
+
                     if (rec.Match(stacks) > 0) return true;
                 }
             }
@@ -715,8 +704,6 @@ namespace ACulinaryArtillery
 
                 if (props.Texture == null) return null;
 
-                //shape = capi.Assets.TryGet("efrecipes:shapes/block/" + FirstCodePart() + "/contents.json").ToObject<Shape>();
-
                 float maxLevel = Attributes["maxFillLevel"].AsFloat();
                 float fullness = contentStack.StackSize / (props.ItemsPerLitre * CapacityLitres);
 
@@ -925,63 +912,6 @@ namespace ACulinaryArtillery
             }
 
             return drop;
-        }
-    }
-
-
-
-    public class SimmerRecipe
-    {
-        public CraftingRecipeIngredient[] Ingredients;
-
-        public CombustibleProperties Simmering;
-
-        public bool Resolve(IWorldAccessor world, string debug)
-        {
-            bool result = true;
-
-            foreach (CraftingRecipeIngredient ing in Ingredients)
-            {
-                result &= ing.Resolve(world, debug);
-            }
-
-            result &= Simmering.SmeltedStack.Resolve(world, debug);
-
-            return result;
-        }
-
-        public int Match(List<ItemStack> Inputs)
-        {
-            if (Inputs.Count != Ingredients.Length) return 0;
-            List<CraftingRecipeIngredient> matched = new List<CraftingRecipeIngredient>();
-            int amount = -1;
-
-            foreach (ItemStack input in Inputs)
-            {
-                CraftingRecipeIngredient match = null;
-
-                foreach (CraftingRecipeIngredient ing in Ingredients)
-                {
-                    if ((ing.ResolvedItemstack == null && !ing.IsWildCard) || matched.Contains(ing) || !ing.SatisfiesAsIngredient(input)) continue;
-                    match = ing;
-                    break;
-                }
-
-                if (match == null || input.StackSize % match.Quantity != 0 || (input.StackSize / match.Quantity) % Simmering.SmeltedRatio != 0) return 0;
-
-                int maxAmount = (input.StackSize / match.Quantity) / Simmering.SmeltedRatio;
-
-                if (amount == -1) amount = maxAmount;
-                else if (maxAmount != amount) return 0;
-
-                if (amount == 0) return amount;
-
-                matched.Add(match);
-
-
-            }
-
-            return amount;
         }
     }
 }
