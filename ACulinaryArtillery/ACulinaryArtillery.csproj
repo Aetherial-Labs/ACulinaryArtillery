@@ -91,6 +91,9 @@
     <None Update="assets\aculinaryartillery\itemtypes\bighook.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="assets\aculinaryartillery\itemtypes\liquids\broth.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="assets\aculinaryartillery\itemtypes\rollingpin.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -134,6 +137,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="assets\aculinaryartillery\recipes\grid\blocks\mixingbowl.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="assets\aculinaryartillery\recipes\simmering\broth.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="assets\aculinaryartillery\recipes\smithing\bighook.json">

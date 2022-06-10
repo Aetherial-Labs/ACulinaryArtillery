@@ -20,7 +20,7 @@ namespace ACulinaryArtillery
         public override bool IsTopOpened => true;
         public override bool AllowHeldLiquidTransfer => true;
 
-        //static SimmerRecipe[] simmerRecipes;
+        static List<SimmerRecipe> simmerRecipes = MixingRecipeRegistry.Loaded.SimmerRecipes;
 
         public bool isSealed;
         public override void OnLoaded(ICoreAPI api)
@@ -28,14 +28,14 @@ namespace ACulinaryArtillery
             base.OnLoaded(api);
         }
         public IInFirepitRenderer GetRendererWhenInFirepit(ItemStack stack, BlockEntityFirepit firepit, bool forOutputSlot)
-            {
-                return new SaucepanInFirepitRenderer(api as ICoreClientAPI, stack, firepit.Pos, forOutputSlot);
-            }
+        {
+            return new SaucepanInFirepitRenderer(api as ICoreClientAPI, stack, firepit.Pos, forOutputSlot);
+        }
 
         public EnumFirepitModel GetDesiredFirepitModel(ItemStack stack, BlockEntityFirepit firepit, bool forOutputSlot)
-            {
-                return EnumFirepitModel.Wide;
-            }
+        {
+            return EnumFirepitModel.Wide;
+        }
         public override WorldInteraction[] GetPlacedBlockInteractionHelp(IWorldAccessor world, BlockSelection selection, IPlayer forPlayer)
         {
             List<ItemStack> liquidContainerStacks = new List<ItemStack>();
@@ -106,8 +106,7 @@ namespace ACulinaryArtillery
             else if (simmerRecipes != null)
             {
 
-                    if (rec.Match(stacks) > 0) return true;
-                }
+                return true;
             }
             return false;
         }
@@ -135,13 +134,15 @@ namespace ACulinaryArtillery
             else if (simmerRecipes != null && contents.Count > 1)
             {
                 SimmerRecipe match = null;
-                int amount = 0;
+                int amount = 10;
 
                 foreach (SimmerRecipe rec in simmerRecipes)
                 {
-                    if ((amount = rec.Match(contents)) > 0)
+                    if (rec.Match(contents) > 0)
                     {
+                         
                         match = rec;
+                        amount = rec.Match(contents);
                         break;
                     }
                 }
@@ -217,9 +218,10 @@ namespace ACulinaryArtillery
 
                 foreach (SimmerRecipe rec in simmerRecipes)
                 {
-                    if ((amount = rec.Match(contents)) > 0)
+                    if (rec.Match(contents)>0)
                     {
                         match = rec;
+                        amount = rec.Match(contents);
                         break;
                     }
                 }
@@ -248,8 +250,9 @@ namespace ACulinaryArtillery
 
                 foreach (SimmerRecipe rec in simmerRecipes)
                 {
-                    if ((amount = rec.Match(contents)) > 0)
+                    if (rec.Match(contents)>0)
                     {
+                        amount = rec.Match(contents);
                         match = rec;
                         break;
                     }
@@ -669,8 +672,9 @@ namespace ACulinaryArtillery
 
                 foreach (SimmerRecipe rec in simmerRecipes)
                 {
-                    if ((amount = rec.Match(contents)) > 0)
+                    if (rec.Match(contents) > 0)
                     {
+                        amount = rec.Match(contents);
                         match = rec;
                         break;
                     }
@@ -713,43 +717,43 @@ namespace ACulinaryArtillery
                 {
                     if (fullness <= 0.1f % maxLevel)
                     {
-                        shape = capi.Assets.TryGet("efrecipes:shapes/block/" + FirstCodePart() + "/contents" + "-" + 0.1f.ToString().Replace(",", ".") + ".json").ToObject<Shape>();
+                        shape = capi.Assets.TryGet("aculinaryartillery:shapes/block/" + FirstCodePart() + "/contents" + "-" + 0.1f.ToString().Replace(",", ".") + ".json").ToObject<Shape>();
                     }
                     else if (fullness <= 0.2f % maxLevel)
                     {
-                        shape = capi.Assets.TryGet("efrecipes:shapes/block/" + FirstCodePart() + "/contents" + "-" + 0.2f.ToString().Replace(",", ".") + ".json").ToObject<Shape>();
+                        shape = capi.Assets.TryGet("aculinaryartillery:shapes/block/" + FirstCodePart() + "/contents" + "-" + 0.2f.ToString().Replace(",", ".") + ".json").ToObject<Shape>();
                     }
                     else if (fullness <= 0.3f % maxLevel)
                     {
-                        shape = capi.Assets.TryGet("efrecipes:shapes/block/" + FirstCodePart() + "/contents" + "-" + 0.3f.ToString().Replace(",", ".") + ".json").ToObject<Shape>();
+                        shape = capi.Assets.TryGet("aculinaryartillery:shapes/block/" + FirstCodePart() + "/contents" + "-" + 0.3f.ToString().Replace(",", ".") + ".json").ToObject<Shape>();
                     }
                     else if (fullness <= 0.4f % maxLevel)
                     {
-                        shape = capi.Assets.TryGet("efrecipes:shapes/block/" + FirstCodePart() + "/contents" + "-" + 0.4f.ToString().Replace(",", ".") + ".json").ToObject<Shape>();
+                        shape = capi.Assets.TryGet("aculinaryartillery:shapes/block/" + FirstCodePart() + "/contents" + "-" + 0.4f.ToString().Replace(",", ".") + ".json").ToObject<Shape>();
                     }
                     else if (fullness <= 0.5f % maxLevel)
                     {
-                        shape = capi.Assets.TryGet("efrecipes:shapes/block/" + FirstCodePart() + "/contents" + "-" + 0.5f.ToString().Replace(",", ".") + ".json").ToObject<Shape>();
+                        shape = capi.Assets.TryGet("aculinaryartillery:shapes/block/" + FirstCodePart() + "/contents" + "-" + 0.5f.ToString().Replace(",", ".") + ".json").ToObject<Shape>();
                     }
                     else if (fullness <= 0.6f % maxLevel)
                     {
-                        shape = capi.Assets.TryGet("efrecipes:shapes/block/" + FirstCodePart() + "/contents" + "-" + 0.6f.ToString().Replace(",", ".") + ".json").ToObject<Shape>();
+                        shape = capi.Assets.TryGet("aculinaryartillery:shapes/block/" + FirstCodePart() + "/contents" + "-" + 0.6f.ToString().Replace(",", ".") + ".json").ToObject<Shape>();
                     }
                     else if (fullness <= 0.7f % maxLevel)
                     {
-                        shape = capi.Assets.TryGet("efrecipes:shapes/block/" + FirstCodePart() + "/contents" + "-" + 0.7f.ToString().Replace(",", ".") + ".json").ToObject<Shape>();
+                        shape = capi.Assets.TryGet("aculinaryartillery:shapes/block/" + FirstCodePart() + "/contents" + "-" + 0.7f.ToString().Replace(",", ".") + ".json").ToObject<Shape>();
                     }
                     else if (fullness <= 0.8f % maxLevel)
                     {
-                        shape = capi.Assets.TryGet("efrecipes:shapes/block/" + FirstCodePart() + "/contents" + "-" + 0.8f.ToString().Replace(",", ".") + ".json").ToObject<Shape>();
+                        shape = capi.Assets.TryGet("aculinaryartillery:shapes/block/" + FirstCodePart() + "/contents" + "-" + 0.8f.ToString().Replace(",", ".") + ".json").ToObject<Shape>();
                     }
                     else if (fullness <= 0.9f % maxLevel)
                     {
-                        shape = capi.Assets.TryGet("efrecipes:shapes/block/" + FirstCodePart() + "/contents" + "-" + 0.9f.ToString().Replace(",", ".") + ".json").ToObject<Shape>();
+                        shape = capi.Assets.TryGet("aculinaryartillery:shapes/block/" + FirstCodePart() + "/contents" + "-" + 0.9f.ToString().Replace(",", ".") + ".json").ToObject<Shape>();
                     }
                     else if (fullness <= 1f % maxLevel)
                     {
-                        shape = capi.Assets.TryGet("efrecipes:shapes/block/" + FirstCodePart() + "/contents" + "-" + 1f.ToString().Replace(",", ".") + ".json").ToObject<Shape>();
+                        shape = capi.Assets.TryGet("aculinaryartillery:shapes/block/" + FirstCodePart() + "/contents" + "-" + 1f.ToString().Replace(",", ".") + ".json").ToObject<Shape>();
                     }
                 }
 
@@ -761,43 +765,43 @@ namespace ACulinaryArtillery
                 {
                     if (fullness <= 0.1f % maxLevel)
                     {
-                        shape = capi.Assets.TryGet("efrecipes:shapes/block/" + FirstCodePart() + "/contents" + "-" + 0.1f.ToString().Replace(",", ".") + ".json").ToObject<Shape>();
+                        shape = capi.Assets.TryGet("aculinaryartillery:shapes/block/" + FirstCodePart() + "/contents" + "-" + 0.1f.ToString().Replace(",", ".") + ".json").ToObject<Shape>();
                     }
                     if (fullness <= 0.2f % maxLevel)
                     {
-                        shape = capi.Assets.TryGet("efrecipes:shapes/block/" + FirstCodePart() + "/contents" + "-" + 0.2f.ToString().Replace(",", ".") + ".json").ToObject<Shape>();
+                        shape = capi.Assets.TryGet("aculinaryartillery:shapes/block/" + FirstCodePart() + "/contents" + "-" + 0.2f.ToString().Replace(",", ".") + ".json").ToObject<Shape>();
                     }
                     else if (fullness <= 0.3f % maxLevel)
                     {
-                        shape = capi.Assets.TryGet("efrecipes:shapes/block/" + FirstCodePart() + "/contents" + "-" + 0.3f.ToString().Replace(",", ".") + ".json").ToObject<Shape>();
+                        shape = capi.Assets.TryGet("aculinaryartillery:shapes/block/" + FirstCodePart() + "/contents" + "-" + 0.3f.ToString().Replace(",", ".") + ".json").ToObject<Shape>();
                     }
                     else if (fullness <= 0.4f % maxLevel)
                     {
-                        shape = capi.Assets.TryGet("efrecipes:shapes/block/" + FirstCodePart() + "/contents" + "-" + 0.4f.ToString().Replace(",", ".") + ".json").ToObject<Shape>();
+                        shape = capi.Assets.TryGet("aculinaryartillery:shapes/block/" + FirstCodePart() + "/contents" + "-" + 0.4f.ToString().Replace(",", ".") + ".json").ToObject<Shape>();
                     }
                     else if (fullness <= 0.5f % maxLevel)
                     {
-                        shape = capi.Assets.TryGet("efrecipes:shapes/block/" + FirstCodePart() + "/contents" + "-" + 0.5f.ToString().Replace(",", ".") + ".json").ToObject<Shape>();
+                        shape = capi.Assets.TryGet("aculinaryartillery:shapes/block/" + FirstCodePart() + "/contents" + "-" + 0.5f.ToString().Replace(",", ".") + ".json").ToObject<Shape>();
                     }
                     else if (fullness <= 0.6f % maxLevel)
                     {
-                        shape = capi.Assets.TryGet("efrecipes:shapes/block/" + FirstCodePart() + "/contents" + "-" + 0.6f.ToString().Replace(",", ".") + ".json").ToObject<Shape>();
+                        shape = capi.Assets.TryGet("aculinaryartillery:shapes/block/" + FirstCodePart() + "/contents" + "-" + 0.6f.ToString().Replace(",", ".") + ".json").ToObject<Shape>();
                     }
                     else if (fullness <= 0.7f % maxLevel)
                     {
-                        shape = capi.Assets.TryGet("efrecipes:shapes/block/" + FirstCodePart() + "/contents" + "-" + 0.7f.ToString().Replace(",", ".") + ".json").ToObject<Shape>();
+                        shape = capi.Assets.TryGet("aculinaryartillery:shapes/block/" + FirstCodePart() + "/contents" + "-" + 0.7f.ToString().Replace(",", ".") + ".json").ToObject<Shape>();
                     }
                     else if (fullness <= 0.8f % maxLevel)
                     {
-                        shape = capi.Assets.TryGet("efrecipes:shapes/block/" + FirstCodePart() + "/contents" + "-" + 0.8f.ToString().Replace(",", ".") + ".json").ToObject<Shape>();
+                        shape = capi.Assets.TryGet("aculinaryartillery:shapes/block/" + FirstCodePart() + "/contents" + "-" + 0.8f.ToString().Replace(",", ".") + ".json").ToObject<Shape>();
                     }
                     else if (fullness <= 0.9f % maxLevel)
                     {
-                        shape = capi.Assets.TryGet("efrecipes:shapes/block/" + FirstCodePart() + "/contents" + "-" + 0.9f.ToString().Replace(",", ".") + ".json").ToObject<Shape>();
+                        shape = capi.Assets.TryGet("aculinaryartillery:shapes/block/" + FirstCodePart() + "/contents" + "-" + 0.9f.ToString().Replace(",", ".") + ".json").ToObject<Shape>();
                     }
                     else if (fullness <= 1f % maxLevel)
                     {
-                        shape = capi.Assets.TryGet("efrecipes:shapes/block/" + FirstCodePart() + "/contents" + "-" + 1f.ToString().Replace(",", ".") + ".json").ToObject<Shape>();
+                        shape = capi.Assets.TryGet("aculinaryartillery:shapes/block/" + FirstCodePart() + "/contents" + "-" + 1f.ToString().Replace(",", ".") + ".json").ToObject<Shape>();
                     }
                 }
 
@@ -905,7 +909,7 @@ namespace ACulinaryArtillery
             ItemStack drop = base.OnPickBlock(world, pos);
 
             BlockEntitySaucepan sp = world.BlockAccessor.GetBlockEntity(pos) as BlockEntitySaucepan;
-          
+
             if (sp != null)
             {
                 drop.Attributes.SetBool("isSealed", sp.isSealed);

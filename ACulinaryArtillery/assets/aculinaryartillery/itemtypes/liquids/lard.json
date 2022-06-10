@@ -15,13 +15,13 @@
             allowSpill: true,
             whenSpilled: { 
                 action: "DropContents",
-                stack: { type: "item", code: "expandedfoods:lard" } 
+                stack: { type: "item", code: "aculinaryartillery:lard" } 
             }
         }
     },
     shape: { base: "game:item/liquid" },
     texture: { base: "game:block/fat" },
-	creativeinventoryStacks: [ { tabs: ["general", "liquids", "expandedfoods"], stacks: [ { type: "block", code: "game:woodbucket", attributes: { ucontents: [ { type:"item", code: "expandedfoods:lard", makefull: true } ] } } ] } ],
+	creativeinventoryStacks: [ { tabs: ["general", "liquids", "expandedfoods"], stacks: [ { type: "block", code: "game:woodbucket", attributes: { ucontents: [ { type:"item", code: "aculinaryartillery:lard", makefull: true } ] } } ] } ],
     maxstacksize: 5000,
     materialDensity: 200,
     transitionableProps: [{

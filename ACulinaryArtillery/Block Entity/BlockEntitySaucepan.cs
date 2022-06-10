@@ -72,7 +72,7 @@ namespace ACulinaryArtillery
 
             for (int j = 0; j < recipes.Count; j++)
             {
-                if (recipes[j].Match(slots))
+                if (recipes[j].Matches(world, slots))
                 {
                     return recipes[j];
                 }

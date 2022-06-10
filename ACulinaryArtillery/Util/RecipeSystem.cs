@@ -9,6 +9,7 @@ using Vintagestory.API.Server;
 using Vintagestory.API.Util;
 using Vintagestory.ServerMods;
 using Vintagestory.GameContent;
+using Vintagestory.API.Datastructures;
 
 namespace ACulinaryArtillery
 {
@@ -539,8 +540,8 @@ namespace ACulinaryArtillery
                         {
                             foreach (var ingreds in rec.Ingredients)
                             {
-                                if (ingreds.Inputs.Length <= 0) continue;
-                                CraftingRecipeIngredient ingred = ingreds.Inputs[0];
+                                if (rec.Ingredients.Length <= 0) continue;
+                                CraftingRecipeIngredient ingred = ingreds;
 
                                 if (ingred.Name == variantCode)
                                 {
@@ -680,7 +681,9 @@ namespace ACulinaryArtillery
         public bool Enabled { get; set; } = true;
 
 
-        public SimmerIngredient[] Ingredients;
+        public CraftingRecipeIngredient[] Ingredients;
+
+        public CombustibleProperties Simmering;
 
         public JsonItemStack Output;
 
@@ -689,7 +692,7 @@ namespace ACulinaryArtillery
 
             var matched = pairInput(inputslots);
 
-            ItemStack mixedStack = Output.ResolvedItemstack.Clone();
+            ItemStack mixedStack = Simmering.SmeltedStack.ResolvedItemstack.Clone();
             mixedStack.StackSize = getOutputSize(matched);
 
             if (mixedStack.StackSize <= 0) return null;
@@ -703,11 +706,9 @@ namespace ACulinaryArtillery
                 CollectibleObject.CarryOverFreshness(api, inputslots, new ItemStack[] { mixedStack }, perishProps);
             }*/
 
-            IExpandedFood food;
-            if ((food = mixedStack.Collectible as IExpandedFood) != null) food.OnCreatedByKneading(matched, mixedStack);
-
             foreach (var val in matched)
             {
+
                 val.Key.TakeOut(val.Value.Quantity * (mixedStack.StackSize / Output.StackSize));
                 val.Key.MarkDirty();
             }
@@ -725,6 +726,40 @@ namespace ACulinaryArtillery
             outputStackSize = getOutputSize(matched);
 
             return outputStackSize >= 0;
+        }
+
+        public int Match(List<ItemStack> Inputs)
+        {
+            if (Inputs.Count != Ingredients.Length) return 0;
+            List<CraftingRecipeIngredient> matched = new List<CraftingRecipeIngredient>();
+            int amount = -1;
+
+            foreach (ItemStack input in Inputs)
+            {
+                CraftingRecipeIngredient match = null;
+
+                foreach (CraftingRecipeIngredient ing in Ingredients)
+                {
+                    if ((ing.ResolvedItemstack == null && !ing.IsWildCard) || matched.Contains(ing) || !ing.SatisfiesAsIngredient(input)) continue;
+                    match = ing;
+                    break;
+                }
+
+                if (match == null || input.StackSize % match.Quantity != 0 || (input.StackSize / match.Quantity) % Simmering.SmeltedRatio != 0) return 0;
+
+                int maxAmount = (input.StackSize / match.Quantity) / Simmering.SmeltedRatio;
+
+                if (amount == -1) amount = maxAmount;
+                else if (maxAmount != amount) return 0;
+
+                if (amount == 0) return amount;
+
+                matched.Add(match);
+
+
+            }
+
+            return amount;
         }
 
         List<KeyValuePair<ItemSlot, CraftingRecipeIngredient>> pairInput(ItemSlot[] inputStacks)
@@ -745,11 +780,10 @@ namespace ACulinaryArtillery
 
                 for (int i = 0; i < Ingredients.Length; i++)
                 {
-                    CraftingRecipeIngredient ingred = Ingredients[i].GetMatch(inputSlot.Itemstack);
-
-                    if (ingred != null && !alreadyFound.Contains(i))
+                
+                    if (Ingredients[i].SatisfiesAsIngredient(inputSlot.Itemstack) && !alreadyFound.Contains(i))
                     {
-                        matched.Add(new KeyValuePair<ItemSlot, CraftingRecipeIngredient>(inputSlot, ingred));
+                        matched.Add(new KeyValuePair<ItemSlot, CraftingRecipeIngredient>(inputSlot, Ingredients[i]));
                         alreadyFound.Add(i);
                         found = true;
                         break;
@@ -800,7 +834,7 @@ namespace ACulinaryArtillery
             }
 
             outQuantityMul = 1;
-            return Output.StackSize * outQuantityMul;
+            return Simmering.SmeltedStack.StackSize * outQuantityMul;
         }
 
         public string GetOutputName()
@@ -817,8 +851,7 @@ namespace ACulinaryArtillery
                 ok &= Ingredients[i].Resolve(world, sourceForErrorLogging);
             }
 
-            ok &= Output.Resolve(world, sourceForErrorLogging);
-
+            ok &= Simmering.SmeltedStack.Resolve(world, sourceForErrorLogging);
 
             return ok;
         }
@@ -832,17 +865,17 @@ namespace ACulinaryArtillery
                 Ingredients[i].ToBytes(writer);
             }
 
-            Output.ToBytes(writer);
+            Simmering.SmeltedStack.ToBytes(writer);
         }
 
         public void FromBytes(BinaryReader reader, IWorldAccessor resolver)
         {
             Code = reader.ReadString();
-            Ingredients = new SimmerIngredient[reader.ReadInt32()];
+            Ingredients = new CraftingRecipeIngredient[reader.ReadInt32()];
 
             for (int i = 0; i < Ingredients.Length; i++)
             {
-                Ingredients[i] = new SimmerIngredient();
+                Ingredients[i] = new CraftingRecipeIngredient();
                 Ingredients[i].FromBytes(reader, resolver);
                 Ingredients[i].Resolve(resolver, "Dough Recipe (FromBytes)");
             }
@@ -854,7 +887,7 @@ namespace ACulinaryArtillery
 
         public SimmerRecipe Clone()
         {
-            SimmerIngredient[] ingredients = new SimmerIngredient[Ingredients.Length];
+            CraftingRecipeIngredient[] ingredients = new CraftingRecipeIngredient[Ingredients.Length];
             for (int i = 0; i < Ingredients.Length; i++)
             {
                 ingredients[i] = Ingredients[i].Clone();
@@ -878,8 +911,8 @@ namespace ACulinaryArtillery
 
             foreach (var ingreds in Ingredients)
             {
-                if (ingreds.Inputs.Length <= 0) continue;
-                CraftingRecipeIngredient ingred = ingreds.Inputs[0];
+                if (Ingredients.Length <= 0) continue;
+                CraftingRecipeIngredient ingred = ingreds;
                 if (ingred == null || !ingred.Code.Path.Contains("*") || ingred.Name == null) continue;
 
                 int wildcardStartLen = ingred.Code.Path.IndexOf("*");
@@ -925,71 +958,6 @@ namespace ACulinaryArtillery
             }
 
             return mappings;
-        }
-    }
-
-    public class SimmerIngredient : IByteSerializable
-    {
-        public CraftingRecipeIngredient[] Inputs;
-
-        public CraftingRecipeIngredient GetMatch(ItemStack stack)
-        {
-            if (stack == null) return null;
-
-            for (int i = 0; i < Inputs.Length; i++)
-            {
-                if (Inputs[i].SatisfiesAsIngredient(stack)) return Inputs[i];
-            }
-
-            return null;
-        }
-
-        public bool Resolve(IWorldAccessor world, string debug)
-        {
-            bool ok = true;
-
-            for (int i = 0; i < Inputs.Length; i++)
-            {
-                ok &= Inputs[i].Resolve(world, debug);
-            }
-
-            return ok;
-        }
-
-        public void FromBytes(BinaryReader reader, IWorldAccessor resolver)
-        {
-            Inputs = new CraftingRecipeIngredient[reader.ReadInt32()];
-
-            for (int i = 0; i < Inputs.Length; i++)
-            {
-                Inputs[i] = new CraftingRecipeIngredient();
-                Inputs[i].FromBytes(reader, resolver);
-                Inputs[i].Resolve(resolver, "Simmer Ingredient (FromBytes)");
-            }
-        }
-
-        public void ToBytes(BinaryWriter writer)
-        {
-            writer.Write(Inputs.Length);
-            for (int i = 0; i < Inputs.Length; i++)
-            {
-                Inputs[i].ToBytes(writer);
-            }
-        }
-
-        public SimmerIngredient Clone()
-        {
-            CraftingRecipeIngredient[] newings = new CraftingRecipeIngredient[Inputs.Length];
-
-            for (int i = 0; i < Inputs.Length; i++)
-            {
-                newings[i] = Inputs[i].Clone();
-            }
-
-            return new SimmerIngredient()
-            {
-                Inputs = newings
-            };
         }
     }
 

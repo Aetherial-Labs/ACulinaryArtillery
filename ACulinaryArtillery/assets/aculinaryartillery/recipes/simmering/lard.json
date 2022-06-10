@@ -19,7 +19,7 @@
 							smeltingType: "bake",
 							smeltedStack: {
 								type: "item",
-								code: "expandedfoods:lard",
+								code: "aculinaryartillery:lard",
 								"quantity":  10
 							},
 							requiresContainer: false
