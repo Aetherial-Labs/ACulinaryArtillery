@@ -1,4 +1,5 @@
-﻿using HarmonyLib;
+﻿using ACulinaryArtillery.Util;
+using HarmonyLib;
 using System;
 using System.Text;
 using Vintagestory.API.Client;
@@ -377,7 +378,9 @@ namespace ACulinaryArtillery
 
         protected virtual void OnBurnTick(float dt)
         {
-            dt *= 1.25f;   //slight speedup because everything just felt too slow...
+            float burnrate = dt * ACulinaryArtilleryConfig.Current.BEExpandedOvenFuelBurnRateMod;
+            
+            dt *= ACulinaryArtilleryConfig.Current.BEExpandedOvenDTMod;   
 
             // Only tick on the server and merely sync to client
             if (Api is ICoreClientAPI)
@@ -389,7 +392,7 @@ namespace ACulinaryArtillery
             // Use up fuel
             if (fuelBurnTime > 0)
             {
-                fuelBurnTime -= dt;
+                fuelBurnTime -= burnrate;
 
                 if (fuelBurnTime <= 0)
                 {
@@ -447,7 +450,7 @@ namespace ACulinaryArtillery
                     // Begin baking - or at least rising - when hot enough
                     if (nowTemp >= 100f)
                     {
-                        IncrementallyBake(dt * 1.2f, slotIndex);
+                        IncrementallyBake(dt, slotIndex);
                     }
                 }
             }
@@ -484,6 +487,7 @@ namespace ACulinaryArtillery
 
         protected virtual void IncrementallyBake(float dt, int slotIndex)
         {
+            dt *= dt * ACulinaryArtilleryConfig.Current.BEExpandedOvenBakeTimeMod;
             ItemSlot slot = Inventory[slotIndex];
             OvenItemData bakeData = bakingData[slotIndex];
             string[] ings = (slot.Itemstack?.Attributes["madeWith"] as StringArrayAttribute)?.value;

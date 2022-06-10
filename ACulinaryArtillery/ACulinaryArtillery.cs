@@ -1,4 +1,5 @@
-﻿using HarmonyLib;
+﻿using ACulinaryArtillery.Util;
+using HarmonyLib;
 using System;
 using System.Reflection;
 using Vintagestory.API.Common;
@@ -52,6 +53,31 @@ namespace ACulinaryArtillery
             api.RegisterItemClass("TransLiquid", typeof(ItemTransLiquid));
             api.RegisterItemClass("ExpandedLiquid", typeof(ItemExpandedLiquid));
             api.RegisterItemClass("ExpandedDough", typeof(ItemExpandedDough));
+
+            //Check for Existing Config file, create one if none exists
+            try
+            {
+                var Config = api.LoadModConfig<ACulinaryArtilleryConfig>("aculinaryartillery.json");
+                if (Config != null)
+                {
+                    api.Logger.Notification("Mod Config successfully loaded.");
+                    ACulinaryArtilleryConfig.Current = Config;
+                }
+                else
+                {
+                    api.Logger.Notification("No Mod Config specified. Falling back to default settings");
+                    ACulinaryArtilleryConfig.Current = ACulinaryArtilleryConfig.GetDefault();
+                }
+            }
+            catch
+            {
+                ACulinaryArtilleryConfig.Current = ACulinaryArtilleryConfig.GetDefault();
+                api.Logger.Error("Failed to load custom mod configuration. Falling back to default settings!");
+            }
+            finally
+            {
+                api.StoreModConfig(ACulinaryArtilleryConfig.Current, "aculinaryartillery.json");
+            }
 
             if (harmony == null)
             {

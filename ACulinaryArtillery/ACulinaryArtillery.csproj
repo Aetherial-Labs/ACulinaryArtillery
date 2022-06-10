@@ -421,6 +421,9 @@
     <None Update="assets\aculinaryartillery\textures\block\cauldron\meteoriciron.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="assets\vanillapatches\patches\clay-oven.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="modinfo.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
