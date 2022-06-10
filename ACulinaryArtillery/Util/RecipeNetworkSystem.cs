@@ -1,10 +1,6 @@
 ﻿using ProtoBuf;
-using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
 using Vintagestory.API.MathTools;
@@ -18,6 +14,7 @@ namespace ACulinaryArtillery
     {
         public List<string> dvalues;
         public List<string> cvalues;
+        public List<string> svalues;
     }
 
     [ProtoContract(ImplicitFields = ImplicitFields.AllPublic)]
@@ -48,6 +45,7 @@ namespace ACulinaryArtillery
         {
             List<DoughRecipe> drecipes = new List<DoughRecipe>();
             List<CookingRecipe> crecipes = new List<CookingRecipe>();
+            List<SimmerRecipe> srecipes = new List<SimmerRecipe>();
 
             if (networkMessage.dvalues != null)
             {
@@ -65,7 +63,27 @@ namespace ACulinaryArtillery
                 }
             }
 
-            MixingRecipeRegistry.Loaded.KneadingRecipes = drecipes;
+            MixingRecipeRegistry.Loaded.SimmerRecipes = srecipes;
+
+            if (networkMessage.svalues != null)
+            {
+                foreach (string srec in networkMessage.svalues)
+                {
+                    using (MemoryStream ms = new MemoryStream(Ascii85.Decode(srec)))
+                    {
+                        BinaryReader reader = new BinaryReader(ms);
+
+                        SimmerRecipe retr = new SimmerRecipe();
+                        retr.FromBytes(reader, clientApi.World);
+
+                        srecipes.Add(retr);
+                    }
+                }
+            }
+
+            MixingRecipeRegistry.Loaded.SimmerRecipes = srecipes;
+
+
             if (networkMessage.dvalues != null)
             {
                 foreach (string crec in networkMessage.cvalues)
@@ -83,7 +101,7 @@ namespace ACulinaryArtillery
             }
             MixingRecipeRegistry.Loaded.MixingRecipes = crecipes;
 
-            System.Diagnostics.Debug.WriteLine(MixingRecipeRegistry.Loaded.KneadingRecipes.Count + " kneading recipes and " + MixingRecipeRegistry.Loaded.MixingRecipes.Count + " mixing recipes loaded to client.");
+            System.Diagnostics.Debug.WriteLine(MixingRecipeRegistry.Loaded.KneadingRecipes.Count + " kneading recipes and " + MixingRecipeRegistry.Loaded.SimmerRecipes.Count + " simmer recipes loaded to client." + MixingRecipeRegistry.Loaded.MixingRecipes.Count + " mixing recipes loaded to client.");
         }
 
         #endregion
@@ -111,6 +129,7 @@ namespace ACulinaryArtillery
         {
             List<string> drecipes = new List<string>();
             List<string> crecipes = new List<string>();
+            List<string> srecipes = new List<string>();
 
             foreach (DoughRecipe drec in MixingRecipeRegistry.Loaded.KneadingRecipes)
             {
@@ -138,10 +157,24 @@ namespace ACulinaryArtillery
                 }
             }
 
+            foreach (SimmerRecipe crec in MixingRecipeRegistry.Loaded.SimmerRecipes)
+            {
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    BinaryWriter writer = new BinaryWriter(ms);
+
+                    crec.ToBytes(writer);
+
+                    string value = Ascii85.Encode(ms.ToArray());
+                    srecipes.Add(value);
+                }
+            }
+
             serverChannel.BroadcastPacket(new RecipeUpload()
             {
                 dvalues = drecipes,
-                cvalues = crecipes
+                cvalues = crecipes,
+                svalues = srecipes
             });
         }
 

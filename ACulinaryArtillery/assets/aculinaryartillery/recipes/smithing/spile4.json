@@ -1,6 +1,6 @@
 {
-	ingredient: { type: "item", code: "game:ingot-*", name: "metal", allowedVariants: ["copper", "brass", "tinbronze", "blackbronze", "titanium", "steel"] },
-	pattern: [[
+	"ingredient": { "type": "item", "code": "game:ingot-*", "name": "metal", "allowedVariants": ["copper", "brass", "tinbronze", "blackbronze", "titanium", "steel"] },
+	"pattern": [[
 		"______##_",
 		"#####_##_",
 		"#####_##_",
@@ -21,6 +21,6 @@
 		"_____##__",
 		"_________"
 	]],
-	name: "4 Spile",
-	output: { type: "block", code: "aculinaryartillery:spile-{metal}-north", stacksize:4  }
+	"name": "4 Spile",
+	"output": { "type": "block", "code": "spile-{metal}-north", "stacksize":4  }
 }
