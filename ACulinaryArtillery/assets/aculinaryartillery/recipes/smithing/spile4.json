@@ -22,5 +22,5 @@
 		"_________"
 	]],
 	name: "4 Spile",
-	output: { type: "block", code: "aculinaryartillery:spile-{metal}-north", stacksize:4  }
+	output: { type: "block", code: "spile-{metal}-north", stacksize:4  }
 }
