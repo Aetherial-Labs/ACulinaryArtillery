@@ -13,11 +13,11 @@ using Vintagestory.API.Datastructures;
 
 namespace ACulinaryArtillery
 {
-    public class efrecipesRecipeNames : ICookingRecipeNamingHelper
+    public class acaRecipeNames : ICookingRecipeNamingHelper
     {
         public string GetNameForIngredients(IWorldAccessor worldForResolve, string recipeCode, ItemStack[] stacks)
         {
-            string mealName = Lang.Get("efrecipes:meal-normal-" + recipeCode);
+            string mealName = Lang.Get("aculinaryartillery:meal-normal-" + recipeCode);
             string full = " ";
 
             List<string> ings = new List<string>();
@@ -29,15 +29,15 @@ namespace ACulinaryArtillery
                     ings.Add(Lang.Get("recipeingredient-" + (stack.Block != null ? "block-" : "item-") + stack.Collectible.Code.Path));
             }
 
-            if (ings.Count == 1) return mealName + full + Lang.Get("efrecipes:made with ") + ings[0];
+            if (ings.Count == 1) return mealName + full + Lang.Get("aculinaryartillery:made with ") + ings[0];
 
-            full = mealName + full + Lang.Get("efrecipes:made with ");
+            full = mealName + full + Lang.Get("aculinaryartillery:made with ");
 
             for (int i = 0; i < ings.Count; i++)
             {
                 if (i + 1 == ings.Count)
                 {
-                    full += Lang.Get("efrecipes:and ") + ings[i];
+                    full += Lang.Get("aculinaryartillery:and ") + ings[i];
                 }
                 else
                 {
@@ -251,7 +251,7 @@ namespace ACulinaryArtillery
 
         public string GetOutputName()
         {
-            return Lang.Get("efrecipes:Will make {0}", Output.ResolvedItemstack.GetName());
+            return Lang.Get("aculinaryartillery:Will make {0}", Output.ResolvedItemstack.GetName());
         }
 
         public bool Resolve(IWorldAccessor world, string sourceForErrorLogging)
@@ -374,7 +374,7 @@ namespace ACulinaryArtillery
         }
     }
 
-    public class efrecipesRecipeLoader : RecipeLoader
+    public class acaRecipeLoader : RecipeLoader
     {
         public ICoreServerAPI api;
 
@@ -436,7 +436,7 @@ namespace ACulinaryArtillery
             }
 
             api.World.Logger.Event("{0} mixing recipes loaded", recipeQuantity);
-            api.World.Logger.StoryEvent(Lang.Get("efrecipes:The chef and the apprentice..."));
+            api.World.Logger.StoryEvent(Lang.Get("aculinaryartillery:The chef and the apprentice..."));
         }
 
         public void LoadKneadingRecipes()
@@ -467,7 +467,7 @@ namespace ACulinaryArtillery
             }
 
             api.World.Logger.Event("{0} kneading recipes loaded", recipeQuantity);
-            api.World.Logger.StoryEvent(Lang.Get("efrecipes:The butter and the bread..."));
+            api.World.Logger.StoryEvent(Lang.Get("aculinaryartillery:The butter and the bread..."));
         }
 
         public void LoadSimmeringRecipes()
@@ -498,7 +498,7 @@ namespace ACulinaryArtillery
             }
 
             api.World.Logger.Event("{0} simmering recipes loaded", recipeQuantity);
-            api.World.Logger.StoryEvent(Lang.Get("efrecipes:The syrup and lard..."));
+            api.World.Logger.StoryEvent(Lang.Get("aculinaryartillery:The syrup and lard..."));
         }
 
 
@@ -839,7 +839,7 @@ namespace ACulinaryArtillery
 
         public string GetOutputName()
         {
-            return Lang.Get("efrecipes:Will make {0}", Output.ResolvedItemstack.GetName());
+            return Lang.Get("aculinaryartillery:Will make {0}", Output.ResolvedItemstack.GetName());
         }
 
         public bool Resolve(IWorldAccessor world, string sourceForErrorLogging)

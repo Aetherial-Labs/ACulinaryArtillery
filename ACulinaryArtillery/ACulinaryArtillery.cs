@@ -18,12 +18,12 @@ namespace ACulinaryArtillery
         {
             base.Start(api);
 
-            CookingRecipe.NamingRegistry["augratin"] = new efrecipesRecipeNames();
-            CookingRecipe.NamingRegistry["riceandbeans"] = new efrecipesRecipeNames();
-            CookingRecipe.NamingRegistry["meatysalad"] = new efrecipesRecipeNames();
-            CookingRecipe.NamingRegistry["yogurtmeal"] = new efrecipesRecipeNames();
-            CookingRecipe.NamingRegistry["pastahot"] = new efrecipesRecipeNames();
-            CookingRecipe.NamingRegistry["pastacold"] = new efrecipesRecipeNames();
+            CookingRecipe.NamingRegistry["augratin"] = new acaRecipeNames();
+            CookingRecipe.NamingRegistry["riceandbeans"] = new acaRecipeNames();
+            CookingRecipe.NamingRegistry["meatysalad"] = new acaRecipeNames();
+            CookingRecipe.NamingRegistry["yogurtmeal"] = new acaRecipeNames();
+            CookingRecipe.NamingRegistry["pastahot"] = new acaRecipeNames();
+            CookingRecipe.NamingRegistry["pastacold"] = new acaRecipeNames();
 
             api.RegisterBlockClass("BlockMeatHooks", typeof(BlockMeatHooks));
             api.RegisterBlockEntityClass("MeatHooks", typeof(BlockEntityMeatHooks));

@@ -38,7 +38,7 @@
     "creativeinventory": {
         "general": [ "*-north" ],
         "terrain": [ "*-north" ],
-        "efrecipes": ["*-north"]
+        "aculinaryartillery": ["*-north"]
     },
     "textures": {
         "woodframe": { "base": "game:block/wood/planks/{woodframe}1" },
