@@ -10,7 +10,7 @@ using Vintagestory.API.Server;
 using Vintagestory.GameContent;
 using Vintagestory.API.Datastructures;
 using System.IO;
-using static ACulinaryArtillery.efrecipesRecipeLoader;
+using static ACulinaryArtillery.acaRecipeLoader;
 
 namespace ACulinaryArtillery
 {
@@ -65,7 +65,7 @@ namespace ACulinaryArtillery
                     },
                     new WorldInteraction()
                     {
-                        ActionLangCode = "efrecipes:blockhelp-open", // json lang file. 
+                        ActionLangCode = "aculinaryartillery:blockhelp-open", // json lang file. 
                         HotKeyCodes = new string[] { "sneak", "sprint" },
                         MouseButton = EnumMouseButton.Right,
                         ShouldApply = (wi, bs, es) => {
@@ -75,7 +75,7 @@ namespace ACulinaryArtillery
                     },
                     new WorldInteraction()
                     {
-                        ActionLangCode = "efrecipes:blockhelp-close", // json lang file. 
+                        ActionLangCode = "aculinaryartillery:blockhelp-close", // json lang file. 
                         HotKeyCodes = new string[] { "sneak", "sprint" },
                         MouseButton = EnumMouseButton.Right,
                         ShouldApply = (wi, bs, es) => {

@@ -149,7 +149,7 @@
             var loc = this.EmptyShapeLoc;
             if (this.Code.Path.Contains("clay")) //override shape for fired clay bottle
             {
-                loc = new AssetLocationAndSource("efrecipes:block/bottle/bottle.json");
+                loc = new AssetLocationAndSource("aculinaryartillery:block/bottle/bottle.json");
                 var asset = capi.Assets.TryGet(loc.WithPathAppendixOnce(".json").WithPathPrefixOnce("shapes/"));
                 shape = asset.ToObject<Shape>();
                 capi.Tesselator.TesselateShape(this, shape, out bucketmesh, new Vec3f(this.Shape.rotateX, this.Shape.rotateY, this.Shape.rotateZ));
@@ -167,7 +167,7 @@
 
                 var level = contentStack.StackSize / props.ItemsPerLitre;
 
-                var basePath = "efrecipes:shapes/block/bottle/glassbottle";
+                var basePath = "aculinaryartillery:shapes/block/bottle/glassbottle";
                 if (level <= 0.25f && level > 0) //the > 0 because the oninteract logic below is a little bugged
                 { shape = capi.Assets.TryGet(basePath + "-1.json").ToObject<Shape>(); }
                 else if (level <= 0.5f)
@@ -208,7 +208,7 @@
 
                 // unlike genmesh, were only rendering the contents at this point
                 var level = contentStack.StackSize / props.ItemsPerLitre;
-                var basePath = "efrecipes:block/bottle/contents-";
+                var basePath = "aculinaryartillery:block/bottle/contents-";
                 if (level <= 0.25f)
                 { loc = new AssetLocationAndSource(basePath + "side-1"); }
                 else if (level <= 0.5f)
@@ -480,7 +480,7 @@
             {
                 var dummy = new DummySlot(content);
                 dsc.AppendLine();
-                dsc.AppendLine(Lang.Get("efrecipes:Liquid Info:"));
+                dsc.AppendLine(Lang.Get("aculinaryartillery:Liquid Info:"));
                 content.Collectible.GetHeldItemInfo(dummy, dsc, world, withDebugInfo);
             }
         }
@@ -719,7 +719,7 @@
 
                  new WorldInteraction()
                 {
-                    ActionLangCode = "efrecipes:heldhelp-drink",
+                    ActionLangCode = "aculinaryartillery:heldhelp-drink",
                     MouseButton = EnumMouseButton.Right,
                     ShouldApply = (wi, bs, es) =>
                     {

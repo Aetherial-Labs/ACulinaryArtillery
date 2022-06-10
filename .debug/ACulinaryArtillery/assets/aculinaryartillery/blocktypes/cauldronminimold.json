@@ -43,7 +43,7 @@
   "creativeinventory": {
     "general": ["*"],
     "construction": ["*"],
-	"efrecipes": [ "*" ]
+	"aculinaryartillery": [ "*" ]
   },
   "replaceable": 700,
   "resistance": 1.5,

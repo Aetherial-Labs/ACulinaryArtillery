@@ -12,7 +12,7 @@
   ],
   "classByType": { "*-burned": "BlockBottle" },
   "entityClassByType": { "*-burned": "Bottle" },
-  "creativeinventory": { "general": [ "*" ], "efrecipes": ["*"] },
+  "creativeinventory": { "general": [ "*" ], "aculinaryartillery": ["*"] },
   "attributes": {
     "shelvable": true,
     "bottlerackable": true,
@@ -41,9 +41,9 @@
     "liquidContainerProps": {
       "capacityLitres": 1,
       "transferSizeLitres": 0.1,
-      "emptyShapeLoc": "efrecipes:shapes/block/bottle/glassbottleempty",
-      "opaqueContentShapeLoc": "efrecipes:shapes/block/bottle/glassbottle",
-      "liquidContentShapeLoc": "efrecipes:shapes/block/bottle/glassbottle",
+      "emptyShapeLoc": "aculinaryartillery:shapes/block/bottle/glassbottleempty",
+      "opaqueContentShapeLoc": "aculinaryartillery:shapes/block/bottle/glassbottle",
+      "liquidContentShapeLoc": "aculinaryartillery:shapes/block/bottle/glassbottle",
       "liquidMaxYTranslate": 0.05
     }
   },

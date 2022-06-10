@@ -112,7 +112,7 @@ namespace ACulinaryArtillery
                 return new WorldInteraction[] {
                     new WorldInteraction()
                     {
-                        ActionLangCode = "efrecipes:blockhelp-mixingbowl-mix",
+                        ActionLangCode = "aculinaryartillery:blockhelp-mixingbowl-mix",
                         MouseButton = EnumMouseButton.Right,
                         ShouldApply = (wi, bs, es) => {
                             BlockEntityMixingBowl beBowl = world.BlockAccessor.GetBlockEntity(bs.Position) as BlockEntityMixingBowl;
@@ -121,7 +121,7 @@ namespace ACulinaryArtillery
                     },
                     new WorldInteraction()
                     {
-                        ActionLangCode = "efrecipes:blockhelp-mixingbowl-autounlock",
+                        ActionLangCode = "aculinaryartillery:blockhelp-mixingbowl-autounlock",
                         MouseButton = EnumMouseButton.Right,
                         HotKeyCode = "sprint",
                         ShouldApply = (wi, bs, es) => {
@@ -131,7 +131,7 @@ namespace ACulinaryArtillery
                     },
                     new WorldInteraction()
                     {
-                        ActionLangCode = "efrecipes:blockhelp-mixingbowl-autolock",
+                        ActionLangCode = "aculinaryartillery:blockhelp-mixingbowl-autolock",
                         MouseButton = EnumMouseButton.Right,
                         HotKeyCode = "sprint",
                         ShouldApply = (wi, bs, es) => {

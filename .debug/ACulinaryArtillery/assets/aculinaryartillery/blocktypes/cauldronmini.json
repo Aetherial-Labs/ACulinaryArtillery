@@ -44,7 +44,7 @@
 	"creativeinventory": {
 		"general": [ "*" ],
 		"decorative": [ "*" ],
-		"efrecipes": [ "*" ]
+		"aculinaryartillery": [ "*" ]
 	},
 	"shape": { "base": "block/cauldronmini/empty" },
 	"sidesolid": {
