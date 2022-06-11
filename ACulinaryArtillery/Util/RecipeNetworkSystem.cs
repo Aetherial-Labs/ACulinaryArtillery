@@ -63,7 +63,7 @@ namespace ACulinaryArtillery
                 }
             }
 
-            MixingRecipeRegistry.Loaded.SimmerRecipes = srecipes;
+            MixingRecipeRegistry.Loaded.KneadingRecipes = drecipes;
 
             if (networkMessage.svalues != null)
             {
@@ -84,7 +84,7 @@ namespace ACulinaryArtillery
             MixingRecipeRegistry.Loaded.SimmerRecipes = srecipes;
 
 
-            if (networkMessage.dvalues != null)
+            if (networkMessage.cvalues != null)
             {
                 foreach (string crec in networkMessage.cvalues)
                 {

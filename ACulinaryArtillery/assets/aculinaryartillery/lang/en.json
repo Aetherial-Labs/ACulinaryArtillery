@@ -875,7 +875,6 @@
 
     "Will make {0}" : "Will make {0}",
     "The chef and the apprentice..." : "The chef and the apprentice...",
-    "...kneading the dough." : "...kneading the dough.",
     "Squeezing x{0} {1}" : "Squeezing x{0} {1}",
     "x{0} {1} inserted" : "x{0} {1} inserted",
     "x{0} {1} leftover" : "x{0} {1} leftover",
@@ -886,8 +885,9 @@
     "and " : "and ",
     "Mixing Bowl" : "Mixing Bowl",
     "Made with ": "Made with ",
-    "The butter and the bread..." : "The butter and the bread...",
+    "The butter and the bread..." : "...punching down dough, letting it rise",
     "Squeezing x{0} {1} for {2} hours": "Squeezing x{0} {1} for {2} hours",
+    "The syrup and lard..." : "...A gentle simmer, then rolling boil.",
 
     "blockhelp-screwpress-rightclick" : "Add item",
     "blockhelp-screwpress-shiftrightclick" : "Add item x5",

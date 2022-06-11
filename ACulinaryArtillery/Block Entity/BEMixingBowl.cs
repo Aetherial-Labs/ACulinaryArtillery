@@ -121,7 +121,7 @@ namespace ACulinaryArtillery
 
         #region Config
 
-        
+
         public virtual float maxMixingTime()
         {
             return 4;
@@ -249,7 +249,6 @@ namespace ACulinaryArtillery
                     float dustAddQ = 5 * mixSpeed;
                     float flourPartMinQ = 1 * mixSpeed;
                     float flourPartAddQ = 20 * mixSpeed;
-
                     FlourDustParticles.Color = FlourParticles.Color = InputStack.Collectible.GetRandomColor(Api as ICoreClientAPI, InputStack);
                     FlourDustParticles.Color &= 0xffffff;
                     FlourDustParticles.Color |= (200 << 24);
@@ -258,11 +257,9 @@ namespace ACulinaryArtillery
                     FlourDustParticles.MinPos.Set(Pos.X - 1 / 32f, Pos.Y + 11 / 16f, Pos.Z - 1 / 32f);
                     FlourDustParticles.MinVelocity.Set(-0.1f, 0, -0.1f);
                     FlourDustParticles.AddVelocity.Set(0.2f, 0.2f, 0.2f);
-
                     FlourParticles.MinPos.Set(Pos.X - 1 / 32f, Pos.Y + 11 / 16f, Pos.Z - 1 / 32f);
                     FlourParticles.AddQuantity = flourPartAddQ;
                     FlourParticles.MinQuantity = flourPartMinQ;
-
                     Api.World.SpawnParticles(FlourParticles);
                     Api.World.SpawnParticles(FlourDustParticles);
                 }*/
@@ -332,7 +329,7 @@ namespace ACulinaryArtillery
                 ((BlockCookedContainer)cooked).SetContents(recipe.Code, servings, mixedStack, IngredStacks);
 
                 inventory[0].TakeOut(1);
-				inventory[0].MarkDirty();
+                inventory[0].MarkDirty();
                 for (var i = 0; i < this.IngredSlots.Length; i++)
                 {
                     //the recipe must be valid at this point, so can't we just take out everything? Like so
@@ -342,7 +339,7 @@ namespace ACulinaryArtillery
                         IngredSlots[i].MarkDirty();
                     }
                 }
-				/*for (int i = 0; i < IngredSlots.Length; i++)
+                /*for (int i = 0; i < IngredSlots.Length; i++)
                 {
                     if (IngredSlots[i].Itemstack != null)
                     {
@@ -354,8 +351,8 @@ namespace ACulinaryArtillery
                     }
                 }*/
 
-			}
-			else if (drecipe != null)
+            }
+            else if (drecipe != null)
             {
                 mixedStack = drecipe.TryCraftNow(Api, IngredSlots);
             }

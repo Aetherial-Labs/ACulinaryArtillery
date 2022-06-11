@@ -85,15 +85,7 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PreBuildEvent>:: Clean the target directory. ::
-del /f /s /q $(TargetDir) &gt; NUL
-rmdir /s /q $(TargetDir)
-
-:: Clean the debug root directory. ::
-del /f /s /q $(SolutionDir).debug &gt; NUL
-rmdir /s /q $(SolutionDir).debug
-
-:: Rebuild the necessary folders. ::
-if not exist $(SolutionDir).debug mkdir $(SolutionDir).debug</PreBuildEvent>
+    <PreBuildEvent>
+    </PreBuildEvent>
   </PropertyGroup>
 </Project>

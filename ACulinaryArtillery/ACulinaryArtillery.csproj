@@ -151,6 +151,9 @@
     <None Update="assets\aculinaryartillery\recipes\smithing\spile4.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="assets\aculinaryartillery\shapes\bighookmold.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="assets\aculinaryartillery\shapes\block\bighookmold.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -361,10 +364,31 @@
     <None Update="assets\aculinaryartillery\shapes\block\spile.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="assets\aculinaryartillery\shapes\bottlerack.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="assets\aculinaryartillery\shapes\bottlerackcorner.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="assets\aculinaryartillery\shapes\cauldronminimold.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="assets\aculinaryartillery\shapes\cauldronmold.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="assets\aculinaryartillery\shapes\item\bighook.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="assets\aculinaryartillery\shapes\item\rollingpinshape.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="assets\aculinaryartillery\shapes\meathooks.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="assets\aculinaryartillery\shapes\screwpress.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="assets\aculinaryartillery\shapes\spile.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="assets\aculinaryartillery\sounds\block\mixing.ogg">
@@ -424,14 +448,13 @@
     <None Update="assets\vanillapatches\patches\clay-oven.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="changelog.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="modinfo.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
-
-  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="if $(Configuration) == Debug (&#xD;&#xA;&#xD;&#xA;:: Clean the debug mod directory. ::&#xD;&#xA;del /f /s /q $(SolutionDir).debug\$(ProjectName) &gt; NUL&#xD;&#xA;rmdir /s /q $(SolutionDir).debug\$(ProjectName)&#xD;&#xA;&#xD;&#xA;:: Rebuild the necessary folders. ::&#xD;&#xA;if not exist $(SolutionDir).debug\$(ProjectName)\ mkdir $(SolutionDir).debug\$(ProjectName)\&#xD;&#xA;&#xD;&#xA;:: Copy all relevant files to debug directory. ::&#xD;&#xA;xcopy &quot;$(TargetDir)&quot; &quot;$(SolutionDir).debug\$(ProjectName)&quot; /y /e /s&#xD;&#xA;&#xD;&#xA;)" />
-  </Target>
 
 
 </Project>

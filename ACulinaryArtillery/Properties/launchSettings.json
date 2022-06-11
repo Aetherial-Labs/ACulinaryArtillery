@@ -2,7 +2,7 @@
   "profiles": {
     "ACulinaryArtillery": {
       "commandName": "Project",
-      "commandLineArgs": "--addModPath=\"C:\\Users\\vinte\\source\\repos\\ACulinaryArtillery\\.debug\"",
+      "commandLineArgs": "--addModPath=\"C:\\Users\\Owner\\source\\repos\\ACulinaryArtillery\\.debug\" --addOrigin=\"C:\\Users\\Owner\\source\\ACulinaryArtillery\\ACulinaryArtillery\\assets\"",
       "workingDirectory": "C:\\Users\\Owner\\AppData\\Roaming\\VintageStory\\VS1165\\"
     }
   }
