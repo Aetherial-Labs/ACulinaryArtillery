@@ -96,11 +96,12 @@ namespace ACulinaryArtillery
             base.StartServerSide(api);
 
             api.RegisterCommand("efremap", "Remaps items in Expanded Foods", "",
+                //This can't possibly work XD
                 (IServerPlayer player, int groupId, CmdArgs args) =>
                 {
-                    api.World.BlockAccessor.WalkBlocks(player.Entity.ServerPos.AsBlockPos.AddCopy(-10), player.Entity.ServerPos.AsBlockPos.AddCopy(10), (block, pos) => {
+                    api.World.BlockAccessor.WalkBlocks(player.Entity.ServerPos.AsBlockPos.AddCopy(-10), player.Entity.ServerPos.AsBlockPos.AddCopy(10), (block, posx, posy, posz) => {
 
-                        BottleFix(pos, block, api.World);
+                        BottleFix(new BlockPos(posx,posy,posz), block, api.World);
                     });
                 }, Privilege.chat);
         }
