@@ -99,9 +99,9 @@ namespace ACulinaryArtillery
                 //This can't possibly work XD
                 (IServerPlayer player, int groupId, CmdArgs args) =>
                 {
-                    api.World.BlockAccessor.WalkBlocks(player.Entity.ServerPos.AsBlockPos.AddCopy(-10), player.Entity.ServerPos.AsBlockPos.AddCopy(10), (block, posx, posy, posz) => {
+                    api.World.BlockAccessor.WalkBlocks(player.Entity.ServerPos.AsBlockPos.AddCopy(-10), player.Entity.ServerPos.AsBlockPos.AddCopy(10), (block, pos) => {
 
-                        BottleFix(new BlockPos(posx,posy,posz), block, api.World);
+                        BottleFix(pos, block, api.World);
                     });
                 }, Privilege.chat);
         }
