@@ -2,8 +2,8 @@
   "profiles": {
     "ACulinaryArtillery": {
       "commandName": "Project",
-      "commandLineArgs": "--addModPath=\"C:\\Users\\Owner\\source\\repos\\ACulinaryArtillery\\.debug\" --addOrigin=\"C:\\Users\\Owner\\source\\ACulinaryArtillery\\ACulinaryArtillery\\assets\"",
-      "workingDirectory": "C:\\Users\\Owner\\AppData\\Roaming\\VintageStory\\VS1165\\"
+      "commandLineArgs": "--addModPath=\"C:\\Users\\Owner\\source\\repos\\ACulinaryArtillery\\ACulinaryArtillery\\bin\\Debug\" --addOrigin=\"C:\\Users\\Owner\\source\\repos\\ACulinaryArtillery\\ACulinaryArtillery\\assets\"",
+      "workingDirectory": "C:\\Users\\Owner\\AppData\\Roaming\\VintageStory\\VS1170Pre1\\"
     }
   }
 }
