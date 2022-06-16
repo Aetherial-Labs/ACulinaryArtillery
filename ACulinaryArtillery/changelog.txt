@@ -1,4 +1,16 @@
-﻿~1.16_v1.0.0~
+﻿~1.17_v2.0.1~
+- corrected bake time modifier so it actually bakes.
+
+
+~1.17_v2.0.0~
+- Updated to Version 1.17
+
+~1.16_v1.0.1~
+- Created ACunlinaryArtillery from Expanded Foods by Separating Tools, Processes, and Recipe Registration
+- Updated lang file to include new storyevent messages.
+- corrected bake time modifier so it actually bakes.
+
+~1.16_v1.0.0~
 - Created ACunlinaryArtillery from Expanded Foods by Separating Tools, Processes, and Recipe Registration
 - Updated lang file to include new storyevent messages.
 

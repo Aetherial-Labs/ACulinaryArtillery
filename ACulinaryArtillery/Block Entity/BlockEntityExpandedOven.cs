@@ -487,7 +487,7 @@ namespace ACulinaryArtillery
 
         protected virtual void IncrementallyBake(float dt, int slotIndex)
         {
-            dt *= dt * ACulinaryArtilleryConfig.Current.BEExpandedOvenBakeTimeMod;
+            dt *= ACulinaryArtilleryConfig.Current.BEExpandedOvenBakeTimeMod;
             ItemSlot slot = Inventory[slotIndex];
             OvenItemData bakeData = bakingData[slotIndex];
             string[] ings = (slot.Itemstack?.Attributes["madeWith"] as StringArrayAttribute)?.value;
