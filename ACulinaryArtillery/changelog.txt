@@ -1,4 +1,7 @@
-﻿~1.16_v1.0.0~
+﻿~1.16_v1.0.1~
+- Corrected bake modifer application
+
+~1.16_v1.0.0~
 - Created ACunlinaryArtillery from Expanded Foods by Separating Tools, Processes, and Recipe Registration
 - Updated lang file to include new storyevent messages.
 
